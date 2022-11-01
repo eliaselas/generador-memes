@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../hojas-de-estilo/Meme.css';
 import memesData from '../memesData';
-
+//Componente en el cual se creara el meme
 export default function Meme() {
   const [meme, setMeme] = useState({
     topText: "",
