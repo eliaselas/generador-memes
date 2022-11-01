@@ -7,11 +7,10 @@ export default function Meme() {
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg"
-
   });
   const [allMemeImages, setAllMemeImages] = useState(memesData);
 
-  function getMemeImagen(e) {
+  function getMemeImage(e) {
     e.preventDefault()
     const memesArray = allMemeImages.data.memes;
     const randomNumber =  Math.floor(Math.random() * memesArray.length)
@@ -24,12 +23,29 @@ export default function Meme() {
   }
   return (
     <main>
-        <form className='form'>
-          <input type="text" placeholder='Top text' className='form--input' />
-          <input type="text" placeholder='Botton text' className='form--input' />
-          <button className='form--button' onClick={getMemeImagen}>Obterner una nueva imagen para meme🖼</button>
-        </form>
-        <img src={meme.randomImage} className='meme-image' alt='Este es la imagen para el meme'/>
+      <div className="form">
+                <input 
+                    type="text"
+                    placeholder="Top text"
+                    className="form--input"
+                />
+                <input 
+                    type="text"
+                    placeholder="Bottom text"
+                    className="form--input"
+                />
+                <button 
+                    className="form--button"
+                    onClick={getMemeImage}
+                >
+                    Get a new meme image 🖼
+                </button>
+            </div>
+            <div className="meme">
+                <img src={meme.randomImage} className="meme--image" />
+                <h2 className="meme--text top">One does not simply</h2>
+                <h2 className="meme--text bottom">Walk into Mordor</h2>
+            </div>
     </main>
   )
 }
