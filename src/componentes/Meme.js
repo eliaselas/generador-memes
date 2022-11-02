@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../hojas-de-estilo/Meme.css";
 import memesData from "../memesData";
 //Componente en el cual se creara el meme
@@ -8,13 +8,17 @@ export default function Meme() {
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
   });
-  const [allMemeImages, setAllMemeImages] = useState(memesData);
+  const [allMemeImages, setAllMemeImages] = useState([]);
 
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+    .then(res => res.json())
+    .then(data => setAllMemeImages(data.data.memes))
+    }, [])
   function getMemeImage(e) {
     e.preventDefault();
-    const memesArray = allMemeImages.data.memes;
-    const randomNumber = Math.floor(Math.random() * memesArray.length);
-    const url = memesArray[randomNumber].url;
+    const randomNumber = Math.floor(Math.random() * allMemeImages.length);
+    const url = allMemeImages[randomNumber].url;
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
@@ -52,11 +56,7 @@ export default function Meme() {
         </button>
       </div>
       <div className="meme">
-        <img
-          src={meme.randomImage}
-          className="meme--image"
-          alt="Imagen meme"
-        />
+        <img src={meme.randomImage} className="meme--image" alt="Imagen meme" />
         <h2 className="meme--text top">{meme.topText}</h2>
         <h2 className="meme--text bottom">{meme.bottomText}</h2>
       </div>
